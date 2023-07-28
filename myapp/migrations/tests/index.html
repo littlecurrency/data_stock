@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Data Entry</title>
+</head>
+<body>
+    <h1>Stock Data Entry</h1>
+    <form method="post" action="{% url 'submit_data' %}">
+        {% csrf_token %}
+        <label for="id_company_name">Company Name:</label>
+        <input type="text" name="company_name" required><br>
+
+        <label for="id_quote">Quote:</label>
+        <input type="text" name="quote" required><br>
+
+        <label for="id_buy_price">Buy Price:</label>
+        <input type="number" name="buy_price" step="0.01" required><br>
+
+        <label for="id_quantity">Quantity:</label>
+        <input type="number" name="quantity" required><br>
+
+        <label for="id_buy_total_price_with_BRK">buy_total_price_with_BRK:</label>
+        <input type="number" name="buy_total_price_with_BRK" required><br>
+
+        <label for="id_sell_price">Sell Price:</label>
+        <input type="number" name="sell_price" step="0.01" required><br>
+
+        <label for="id_sell_order_price">sell_order_price:</label>
+        <input type="number" name="sell_order_price" step="0.01" required><br>
+
+        <input type="submit" value="Submit">
+        <button type="button" onclick="clearForm()">Clear</button>
+    </form>
+
+    <form method="post" action="{% url 'view_content' %}">
+        {% csrf_token %}
+        <input type="submit" value="View Content">
+    </form>
+
+    <script>
+        function clearForm() {
+            // Get all input elements from the form
+            const formInputs = document.querySelectorAll('form input[type="text"], form input[type="number"]');
+
+            // Loop through each input element and set its value to an empty string
+            formInputs.forEach(input => {
+                input.value = '';
+            });
+        }
+    </script>
+
+</body>
+</html>

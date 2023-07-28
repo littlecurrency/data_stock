@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Content</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>View Content</h1>
+
+    <!-- Add Filter Options -->
+    <label for="filter_date">Filter by Date:</label>
+    <input type="date" id="filter_date">
+    <label for="filter_company">Filter by Company Name:</label>
+    <input type="text" id="filter_company">
+    <button onclick="filterContent()">Filter</button>
+     <button onclick="clearFilter()">Clear Filter</button>
+
+    <table>
+        <tr>
+            <th>Buy-Date</th>
+            <th>Company Name</th>
+            <th>Quote</th>
+            <th>Buy Price</th>
+            <th>Quantity</th>
+            <th>Buy Total Price with BRK</th>
+            <th>Buy Order Price</th>
+            <th>BRK Buy Charge</th>
+            <th>Sell Price</th>
+            <th> Sell Total Price with BRK</th>
+            <th>Sell Order Price</th>
+            <th>BRK Sell Charge</th>
+            <th>Total BRK Charge</th>
+            <th>Profit/Loss</th>
+        </tr>
+        {% for item in content %}
+        <tr>
+            <td>{{ item.date }}</td>
+            <td>{{ item.company_name }}</td>
+            <td>{{ item.quote }}</td>
+            <td>{{ item.buy_price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.buy_total_price_with_BRK }}</td>
+            <td>{{ item.buy_order_price }}</td>
+            <td>{{ item.BRK_Buy_charge }}</td>
+            <td>{{ item.sell_price }}</td>
+            <td>{{ item.sell_total_price_with_BRK }}</td>
+            <td>{{ item.sell_order_price }}</td>
+            <td>{{ item.BRK_Sell_charge }}</td>
+            <td>{{ item.total_brk_charge }}</td>
+            <td>{{ item.profit_or_loss }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+   <script>
+        function filterContent() {
+            const dateFilter = document.getElementById('filter_date').value;
+            const companyFilter = document.getElementById('filter_company').value.toLowerCase();
+
+            const tableRows = document.querySelectorAll('table tr');
+
+            tableRows.forEach((row, index) => {
+                if (index === 0) {
+                    // Skip the header row
+                    return;
+                }
+
+                const dateCell = row.cells[0].textContent;
+                const companyCell = row.cells[1].textContent.toLowerCase();
+
+                const dateMatch = dateFilter ? dateCell === dateFilter : true;
+                const companyMatch = companyFilter ? companyCell.includes(companyFilter) : true;
+
+                if (dateMatch && companyMatch) {
+                    row.style.display = ""; // Show the row if it matches the filters
+                } else {
+                    row.style.display = "none"; // Hide the row if it doesn't match the filters
+                }
+            });
+        }
+
+        function clearFilter() {
+            const tableRows = document.querySelectorAll('table tr');
+
+            tableRows.forEach((row) => {
+                row.style.display = ""; // Show all rows by removing the display style
+            });
+        }
+    </script>
+</body>
+</html>
