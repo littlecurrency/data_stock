@@ -1,28 +1,8 @@
 import json
 import csv
-from datetime import date, datetime
+from datetime import date
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
-def calculate_total(data_list):
-    # Calculate the total of all numeric fields across all rows
-    total_row = {
-        'date': "Total",
-        'company_name': "",
-        'quote': "",
-        'buy_price': sum(item['buy_price'] for item in data_list),
-        'quantity': sum(item['quantity'] for item in data_list),
-        'buy_total_price_with_BRK': sum(item['buy_total_price_with_BRK'] for item in data_list),
-        'buy_order_price': sum(item['buy_order_price'] for item in data_list),
-        'BRK_Buy_charge': sum(item['BRK_Buy_charge'] for item in data_list),
-        'sell_price': sum(item['sell_price'] for item in data_list),
-        'sell_total_price_with_BRK': sum(item['sell_total_price_with_BRK'] for item in data_list),
-        'sell_order_price': sum(item['sell_order_price'] for item in data_list),
-        'BRK_Sell_charge': sum(item['BRK_Sell_charge'] for item in data_list),
-        'total_brk_charge': sum(item['total_brk_charge'] for item in data_list),
-        'profit_or_loss': sum(item['profit_or_loss'] for item in data_list),
-    }
-    return total_row
 
 def submit_data(request):
     if request.method == 'POST':
@@ -73,13 +53,6 @@ def submit_data(request):
         # Write the updated data back to data.json
         with open('data.json', 'w') as json_file:
             json.dump(data_list, json_file, indent=4)
-
-        # Calculate the total row
-        total_row = calculate_total(data_list)
-
-        # Write the updated data (including the total row) back to data.json
-        with open('data.json', 'w') as json_file:
-            json.dump(data_list + [total_row], json_file, indent=4)
 
         # Update/Append data to CSV file
         with open('data.csv', 'a', newline='') as csv_file:
@@ -150,6 +123,7 @@ def edit_company(request):
 
     return render(request, 'modify.html')
 
+from datetime import datetime
 
 def update_company(request):
     if request.method == 'POST':
@@ -200,3 +174,4 @@ def update_company(request):
         return redirect('view_content')
 
     return render(request, 'modify.html')
+
