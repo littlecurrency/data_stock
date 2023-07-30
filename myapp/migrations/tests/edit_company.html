@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Company Data</title>
+</head>
+<style>
+    /* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    margin: 20px auto;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Adjusted button size */
+form input[type="submit"],
+form button[type="button"] {
+    display: block;
+    width: 100%; /* Adjust button width as needed */
+    padding: 8px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Additional styles for buttons */
+form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+form button[type="button"] {
+    background-color: #ccc;
+    color: #333;
+}
+
+form button[type="button"]:hover {
+    background-color: #ddd;
+}
+
+</style>
+<body>
+    <h1>Edit Company Data</h1>
+    <form method="post" action="{% url 'update_company' %}">
+        {% csrf_token %}
+        <input type="hidden" name="company_name" value="{{ company_data.company_name }}">
+
+        <label for="id_quote">Quote:</label>
+        <input type="text" name="quote" value="{{ company_data.quote }}" required><br>
+
+        <label for="id_buy_price">Buy Price:</label>
+        <input type="number" name="buy_price" step="0.01" value="{{ company_data.buy_price }}" required><br>
+
+        <label for="id_quantity">Quantity:</label>
+        <input type="number" name="quantity" value="{{ company_data.quantity }}" required><br>
+
+        <label for="id_buy_total_price_with_BRK">buy_total_price_with_BRK:</label>
+        <input type="number" name="buy_total_price_with_BRK" value="{{ company_data.buy_total_price_with_BRK }}" required><br>
+
+        <label for="id_sell_price">Sell Price:</label>
+        <input type="number" name="sell_price" step="0.01" value="{{ company_data.sell_price }}" required><br>
+
+        <label for="id_sell_order_price">sell_order_price:</label>
+        <input type="number" name="sell_order_price" step="0.01" value="{{ company_data.sell_order_price }}" required><br>
+
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html>
+

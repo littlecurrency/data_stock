@@ -37,6 +37,7 @@
     <input type="text" id="filter_company">
     <button onclick="filterContent()">Filter</button>
      <button onclick="clearFilter()">Clear Filter</button>
+    <button onclick="exportToCSV()">Export CSV</button>
 
     <table>
         <tr>
@@ -54,6 +55,7 @@
             <th>BRK Sell Charge</th>
             <th>Total BRK Charge</th>
             <th>Profit/Loss</th>
+            <th>Update Date</th>
         </tr>
         {% for item in content %}
         <tr>
@@ -71,8 +73,27 @@
             <td>{{ item.BRK_Sell_charge }}</td>
             <td>{{ item.total_brk_charge }}</td>
             <td>{{ item.profit_or_loss }}</td>
+            <td>{{ item.update_date }}</td>
         </tr>
         {% endfor %}
+        <tr>
+            <td>{{ total_row.date }}</td>
+            <!-- Include empty cells for the other columns (or put appropriate values if needed) -->
+            <td>{{ total_row.company_name }}</td>
+            <td>{{ total_row.quote }}</td>
+            <td>{{ total_row.buy_price }}</td>
+            <td>{{ total_row.quantity }}</td>
+            <td>{{ total_row.buy_total_price_with_BRK }}</td>
+            <td>{{ total_row.buy_order_price }}</td>
+            <td>{{ total_row.BRK_Buy_charge }}</td>
+            <td>{{ total_row.sell_price }}</td>
+            <td>{{ total_row.sell_total_price_with_BRK }}</td>
+            <td>{{ total_row.sell_order_price }}</td>
+            <td>{{ total_row.BRK_Sell_charge }}</td>
+            <td>{{ total_row.total_brk_charge }}</td>
+            <td>{{ total_row.profit_or_loss }}</td>
+            <td></td> <!-- If you want to leave the 'Update Date' cell empty in the total row -->
+        </tr>
     </table>
 
    <script>
@@ -110,5 +131,11 @@
             });
         }
     </script>
+<script>
+    function exportToCSV() {
+        // JavaScript code to export the data as CSV
+        // You can use the data available in the 'content' variable and generate a CSV file.
+    }
+</script>
 </body>
 </html>
